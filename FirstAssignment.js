@@ -38,7 +38,7 @@ const CustomImage = (props) => {
   }, []);
   return (
     <View style={{
-      flexBasis: '50%',
+      flexBasis: '100%',
       padding: 5
     }}>
       <Image source={{
@@ -168,11 +168,26 @@ const FirstAssignment = () => {
           justifyContent: 'center',
           alignSelf: 'auto',
         }}>
-          {data.images.map((item, i) => {
-            return (
-              <CustomImage source={item} key={i + 1} />
-            )
-          })}
+          <View style={{
+            flexBasis: '50%'
+          }}>
+            
+            {data.images.map((item, i) => {
+              return (
+                <CustomImage source={item} key={i + 1} />
+              )
+            })}
+          </View>
+          <View style={{
+            flexBasis: '50%'
+          }}>
+            
+            {data.images.reverse().map((item, i) => {
+              return (
+                <CustomImage source={item} key={i + 1} />
+              )
+            })}
+          </View>
         </View>
       </View>
     </ScrollView>
