@@ -3,10 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Constants from "expo-constants"
 import FirstAssignment from './FirstAssignment';
+import Lesson3 from './Lesson3/Lesson3';
 
 export default function App() {
   return (
-    <FirstAssignment />
+    <Lesson3 />
   );
 }
 
