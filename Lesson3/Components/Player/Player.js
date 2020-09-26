@@ -6,9 +6,19 @@ const selectData = {
   paper: require("../../../assets/paper.png"),
   scissors: require("../../../assets/scissors.png")
 };
-
-const Player = ({ selection, type, round }) => {
-  const [playerSelection, setPlayerSelection] = useState(require("../../../assets/hand.png"));
+const rules = {
+  rock: (value) => {
+    return value === 'paper';
+  },
+  paper: (value) => {
+    return value === 'scissors';
+  },
+  scissors: (value) => {
+    return value === 'rock';
+  },
+};
+const choices = ['rock', 'paper', 'scissors'];
+const Player = ({ selection, type, round, onFinish, opponent }) => {
   const [showAnimate, setShowAnimate] = useState(false);
   const [count, setCount] = useState(1);
   useEffect(() => {
@@ -32,6 +42,14 @@ const Player = ({ selection, type, round }) => {
       spinValue.addListener(({ value }) => {
         if (value >= 1) {
           setShowAnimate(false);
+          if (type !== 'computer') {
+            const result = rules[opponent](selection) ? 'win' : 'lose';
+            onFinish({
+              player: selection,
+              computer: opponent,
+              result: opponent === selection ? 'ties' : result,
+            })
+          }
         }
       })
     }
@@ -56,10 +74,7 @@ const Player = ({ selection, type, round }) => {
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['-22deg', '10deg']
-  })
-  useEffect(() => {
-    console.log('player selection: ', playerSelection);
-  }, [playerSelection]);
+  });
   useEffect(() => {
     setCount(round);
   }, [round]);
